@@ -7,27 +7,27 @@ bot = telebot.TeleBot(setting.token);
 
 client = MongoClient(setting.mongoUrl)
 db = client['PytonTestBot']
-series_collection = db['bot']
+collection = db['bot']
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     # Логирование сообщений
-    print('Принято новое сообщение:', '"' + message.text + '",', "От:", str(message.from_user.id))
+    print('Принято новое сообщение:', '"' + message.text + '",', "От:", message.from_user.first_name, message.from_user.last_name)
 
     # Запрашиваем профиль пользователя
-    result = func.find_document(series_collection, {'uid': message.from_user.id})
+    _user = func.find_document(collection, {'uid': message.from_user.id})
 
-    if (result == None and message.text != "/reg"):
+    if (_user == None and message.text != "/reg"):
         bot.send_message(message.from_user.id, 'Ты не зарегистрирован!\nИспользуй команду: /reg')
         return
 
     if (message.text == "/reg"):
-        if (result != None):
+        if (_user != None):
             bot.send_message(message.from_user.id, "Ты уже зарегистрирован!")
             return
-        mydoc = series_collection.count_documents({})
-        reg = { "id": mydoc + 1, "uid": message.from_user.id, "name": message.from_user.first_name }
-        func.insert_document(series_collection, reg)
+        count_users = collection.count_documents({})
+        reg = { "id": count_users + 1, "uid": message.from_user.id, "name": message.from_user.first_name }
+        func.insert_document(collection, reg)
         bot.send_message(message.from_user.id, "Ты успешно зарегистрирован!")
         return
 
@@ -44,12 +44,12 @@ def get_text_messages(message):
     elif (message.text == "/profile"):        
         bot.send_message(message.from_user.id, 
             "\nТвой профиль," + 
-            "\nИмя: " + result['name'] +
-            "\nID Профиля: " + str(result['id'])
+            "\nИмя: " + _user['name'] +
+            "\nID Профиля: " + str(_user['id'])
         )
 
     elif message.text == "/list":
-        users = func.find_document(series_collection, {}, True)
+        users = func.find_document(collection, {}, True)
         list = ''
         for user in users:
             list = list + '[' + str(user['id']) + '] ' + user['name'] + '\n'
