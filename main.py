@@ -31,24 +31,24 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, "Ты успешно зарегистрирован!")
         return
 
-    if (message.text == "/start"):
+    elif (message.text == "/start"):
         bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?\nВведи: /help, что-бы получить список команд!")
 
-    if (message.text == "/help"):
+    elif (message.text == "/help"):
         bot.send_message(message.from_user.id, "Вот список моих команд:" + 
         "\n/help - вывести список команд" + 
         "\n/list - Список пользователей" + 
         "\n/profile - Профиль" +
         "\n/reg - Регистрация")
 
-    if (message.text == "/profile"):        
+    elif (message.text == "/profile"):        
         bot.send_message(message.from_user.id, 
             "\nТвой профиль," + 
             "\nИмя: " + result['name'] +
             "\nID Профиля: " + str(result['id'])
         )
 
-    if message.text == "/list":
+    elif message.text == "/list":
         users = func.find_document(series_collection, {}, True)
         list = ''
         for user in users:
