@@ -1,12 +1,14 @@
 from pymongo import MongoClient;
 import telebot;
-import setting;
 import keyboard;
 import messages;
+import os
+from dotenv import load_dotenv
 
-bot = telebot.TeleBot(setting.token);
+load_dotenv()
+bot = telebot.TeleBot(os.getenv('TOKEN')); 
 
-client = MongoClient(setting.mongoUrl)
+client = MongoClient(os.getenv('MONGO_URL'))
 db = client['PytonTestBot']
 collection = db['bot']
 
