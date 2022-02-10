@@ -43,7 +43,8 @@ def get_text_messages(message, collection, bot):
             "\n/help - вывести список команд" + 
             "\n/list - Список пользователей" + 
             "\n/profile - Профиль" +
-            "\n/reg - Регистрация")
+            "\n/reg - Регистрация" +
+            "\n/тест - Тест")
 
         case "/profile":
             bot.send_message(message.from_user.id, 
