@@ -2,12 +2,13 @@ import func;
 from telebot import types
 
 def get_text_messages(message, collection, bot):
-    # Логирование сообщений
+    # Логирование сообщений. (в консоль, для личных целей, не несет смысла)
     print(f'Принято новое сообщение: "{message.text}", От {message.from_user.first_name} {message.from_user.last_name}')
 
-    # Запрашиваем профиль пользователя
+    # Запрашиваем профиль пользователя в базе.
     _user = func.find_document(collection, {'uid': message.from_user.id})
 
+    # Проверка на существующую запись пользователя в базе.
     if (_user == None and message.text != "/reg"):
         bot.send_message(message.from_user.id, 'Ты не зарегистрирован!\nИспользуй команду: /reg')
         return
@@ -26,9 +27,10 @@ def get_text_messages(message, collection, bot):
         case "/тест":
             keyboard = types.InlineKeyboardMarkup();
             key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes');
+            key_no = types.InlineKeyboardButton(text='Нет', callback_data='no');
             base_url = "https://hrw.test.urentbike.ru"
-            key_no = types.InlineKeyboardButton(text='Нет', callback_data='no', url=base_url);
-            keyboard.add(key_yes).add(key_no);
+            key_hrw = types.InlineKeyboardButton(text='hrw.test', callback_data='hrw', url=base_url);
+            keyboard.add(key_yes).add(key_no).add(key_hrw);
             question = 'Вот клавиатура:';
             bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
         
