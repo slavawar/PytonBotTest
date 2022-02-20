@@ -21,4 +21,4 @@ def get_text_messages(message):
 def callback_worker(call): 
     keyboard.callback_worker(call, bot)
 
-bot.polling(none_stop=True, interval=0)
+bot.polling(non_stop=True, interval=0)
