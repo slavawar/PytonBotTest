@@ -1,10 +1,10 @@
 from importlib.machinery import SourceFileLoader
-import func;
+from func import data;
 import os
 
 def callback_worker(call, bot, collection):
 
-    _user = func.find_document(collection, {'uid': call.from_user.id})
+    _user = data.find_document(collection, {'uid': call.from_user.id})
 
     try:
         test = call.data.split("_")

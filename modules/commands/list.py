@@ -1,11 +1,11 @@
 from telebot import types
-import func;
+from func import data;
 
 tag = ['list', 'список']
 button = []
 
 def funca(message, collection, bot, _user):
-    users = func.find_document(collection, {}, True)
+    users = data.find_document(collection, {}, True)
     list = ''
     for user in users:
         list = f'{list}[{user["id"]}] {user["name"]}\n'

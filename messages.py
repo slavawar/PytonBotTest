@@ -1,7 +1,7 @@
 import os
 import re
 import importlib.util as ilu
-import func;
+from func import data;
 from telebot import types
 from importlib.machinery import SourceFileLoader
 
@@ -10,7 +10,7 @@ def get_text_messages(message, collection, bot):
     print(f'Принято новое сообщение: "{message.text}", От {message.from_user.first_name} {message.from_user.last_name}')
 
     # Запрашиваем профиль пользователя в базе.
-    _user = func.find_document(collection, {'uid': message.from_user.id})
+    _user = data.find_document(collection, {'uid': message.from_user.id})
 
     # Проверка на существующую запись пользователя в базе.
     if (_user == None and message.text != "/reg"):
