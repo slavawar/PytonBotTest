@@ -19,6 +19,6 @@ def get_text_messages(message):
 # Обработка нажатой кнопки, вызов модуля keyboard.py
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call): 
-    keyboard.callback_worker(call, bot)
+    keyboard.callback_worker(call, bot, collection)
 
 bot.polling(non_stop=True, interval=0)

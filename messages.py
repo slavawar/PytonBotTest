@@ -29,5 +29,5 @@ def get_text_messages(message, collection, bot):
             bot.send_message(message.from_user.id, "Неизвестная команда. Напиши /help, что-бы получить список моих команд.")
         
     else:
-        # TODO: Тут должен быть обработчик на фразы
+        # TODO: Тут должен быть обработчик на фразы или список возможных.
         bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help, что-бы получить список моих команд.")
