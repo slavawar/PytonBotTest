@@ -13,14 +13,4 @@ def callback_worker(call, bot, collection):
         foo.function(call, collection, bot, _user)
         
     except Exception:
-        bot.send_message(call.message.chat.id, "Неизвестная кнопка. " + call.data)
-
-    '''
-    Это в самом файле кнопки. Или группы кнопок.
-    match call.data:
-        case "yes":
-            bot.send_message(call.message.chat.id, 'Ты ответил да?');
-
-        case "no":
-            bot.send_message(call.message.chat.id, 'Ты ответил нет?');
-    '''
+        bot.send_message(call.message.chat.id, "Неизвестная кнопка.")
