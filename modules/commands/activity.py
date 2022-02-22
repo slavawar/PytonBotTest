@@ -9,9 +9,13 @@ dotenv.load_dotenv(dotenv_file)
 
 def funca(message, collection, bot, _user):
     response = data.get_request(os.environ["TOKEN_CRM"], 'https://hrw.test.urentbike.ru:10005', 'activity')
-    print(response)
+    #print(response)
     if response == 401:
         bot.send_message(message.from_user.id, "Токен устарел\nперезапросите командой: /token")
         return
     
-    bot.send_message(message.from_user.id, "Что то есть.")
+    _transport = []
+    for transport in response['activities']:
+        _transport.append(transport['bikeIdentifier'])
+
+    bot.send_message(message.from_user.id, "Список транспорта в аренде:\n" + "\n".join(_transport))
