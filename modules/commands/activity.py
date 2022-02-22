@@ -17,5 +17,6 @@ def funca(message, collection, bot, _user):
     _transport = []
     for transport in response['activities']:
         _transport.append(transport['bikeIdentifier'])
-
-    bot.send_message(message.from_user.id, "Список транспорта в аренде:\n" + "\n".join(_transport))
+    if _transport == []: text = 'Нет транспорта в аренде.'
+    else: text = "Список транспорта в аренде:\n" + "\n".join(_transport)
+    bot.send_message(message.from_user.id, text)
