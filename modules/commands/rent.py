@@ -21,7 +21,6 @@ def funca(message, collection, bot, _user):
             "withInsurance": False
             }
         response = data.post_request('https://hrw.test.urentbike.ru/gatewayclient/api/v1/order/make', _data, _user["resive_token"])
-        print(response)
         if response == False:
             bot.send_message(message.from_user.id, "Что то пошло не так.")
             return

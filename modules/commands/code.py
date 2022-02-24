@@ -10,7 +10,6 @@ def funca(message, collection, bot, _user):
         if match == None:
             bot.send_message(message.from_user.id, "Код должен состоять только из цифр!\nПример: /code 1234")
             return
-        print('Код тут!')
         response = requests.post(
             url = 'https://hrw.test.urentbike.ru/identity/connect/token',
             data = {'client_id':'mobile.client',
@@ -30,7 +29,6 @@ def funca(message, collection, bot, _user):
                 'Accept-Encoding'           : 'gzip',
                 'User-Agent'                : 'okhttp/3.12.6'}
         )
-        print('Входной: ', response.json()) # TODO: Убрать.
         if response.status_code == 200:
             resive_token = response.json()['access_token']
             refresh_token = response.json()['refresh_token']
