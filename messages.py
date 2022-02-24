@@ -11,7 +11,7 @@ def get_text_messages(message, collection, bot):
     _user = data.find_document(collection, {'uid': message.from_user.id})
 
     # Проверка на существующую запись пользователя в базе.
-    if (_user == None and message.text != "/reg"):
+    if (_user == None and not re.search(r'(\/reg)', message.text)):
         bot.send_message(message.from_user.id, 'Ты не зарегистрирован!\nИспользуй команду: /reg')
         return
 
