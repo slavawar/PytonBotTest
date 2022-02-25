@@ -1,4 +1,7 @@
 import requests
+import time
+import jwt
+import os
 
 class data:
     # Добавление записи
@@ -66,3 +69,41 @@ class data:
         if response.status_code == 401:
             return 401
         else: return False
+
+    def ini_token(message, collection, bot, _user):
+        decode_jwt_info = jwt.decode(
+            _user["resive_token"],
+            algorithms="HS256",
+            options={"verify_signature": False}
+        )
+        exp = decode_jwt_info['exp']
+        _time = int(time.time())
+
+        if _time > exp:
+            print('Обнарущен протухший токен.')
+            response = requests.post(
+            url = 'https://hrw.test.urentbike.ru/identity/connect/token',
+            data = {'client_id': 'mobile.client',
+                'client_secret': os.getenv('CLIENT_SECRET'),
+                'grant_type': 'refresh_token',
+                'refresh_token': _user["refresh_token"]},
+            headers = {'Environment-Info'   : 'platform: Android, osVersion: 23, appVersion: 0.43.2 (217), device: Xiaomi Redmi 4',
+                'TraceId'                   : '6OHPFK1ENY',
+                'X-AppsFlyer-Id'            : '1577185931367-5301174492424016623',
+                'X-AppsFlyer-Advertising-Id': '5eaed67d-2c8d-41f3-9167-b6504ca5a95c',
+                'Content-Type'              : 'application/x-www-form-urlencoded',
+                'Connection'                : 'Keep-Alive',
+                'Accept-Encoding'           : 'gzip',
+                'User-Agent'                : 'okhttp/3.12.6',
+                'Host': 'service.urentbike.ru:10000'}
+            )
+            if response.status_code == 200:
+                resive_token = response.json()['access_token']
+                refresh_token = response.json()['refresh_token']
+                data.update_document(collection, {'uid': message.from_user.id}, {'resive_token': resive_token, 'refresh_token': refresh_token})
+                print("Токен обновлен.", message.from_user.id)
+                return True
+            else:
+                print('Неудачное обновление токена')
+                bot.send_message(message.from_user.id, "Обновление токена невозможно. Переавторизуйтесь.\nИспользуйте команду /code")
+                return False

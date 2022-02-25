@@ -9,9 +9,7 @@ dotenv.load_dotenv(dotenv_file)
 
 def funca(message, collection, bot, _user):
     response = data.get_request(_user["resive_token"], 'https://hrw.test.urentbike.ru:10005', 'activity')
-    if response == 401:
-        bot.send_message(message.from_user.id, "Токен устарел\nперезапросите командой: /token")
-        return
+    if response == 401: return
     
     _transport = []
     for transport in response['activities']:

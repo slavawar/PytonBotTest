@@ -1,12 +1,5 @@
-import os
 import re
-
-import dotenv
 from func import data;
-from dotenv import load_dotenv, find_dotenv
-
-dotenv_file = dotenv.find_dotenv()
-dotenv.load_dotenv(dotenv_file)
 
 def funca(message, collection, bot, _user):
     try:

@@ -62,7 +62,7 @@ def funca(message, collection, bot, _user):
             }
         )
         if response.status_code == 200:
-            bot.send_message(message.from_user.id, "Запрос смс отправлен!")
+            bot.send_message(message.from_user.id, "Запрос смс отправлен!\nПодтвердите код командой: /code 1234")
             return
         if (response.json()['succeeded'] == False or response.status_code == 400):
             bot.send_message(message.from_user.id, 'Ошибка: ' + response.json()['errors'][0]['value'][0])
