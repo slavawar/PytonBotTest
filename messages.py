@@ -14,8 +14,9 @@ def get_text_messages(message, collection, bot):
     if (_user == None and not re.search(r'(\/reg)', message.text)):
         bot.send_message(message.from_user.id, 'Ты не зарегистрирован!\nИспользуй команду: /reg')
         return
-    test = data.ini_token(message, collection, bot, _user)
-    if test == True: _user = data.find_document(collection, {'uid': message.from_user.id})
+    if _user != None:
+        test = data.ini_token(message, collection, bot, _user)
+        if test == True: _user = data.find_document(collection, {'uid': message.from_user.id})
 
     match = re.search(r'^\/(.*)', message.text)
     if match:
