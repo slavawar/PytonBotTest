@@ -25,7 +25,8 @@ def get_text_messages(message, collection, bot):
             link = re.search(r'(.*)\s(.*)', match[1])
             if link: _command = link[1]
             else: _command = match[1]
-            folder = 'modules\commands\\' + _command + '.py'
+            folder = os.getcwd() + '\modules\commands\\' + _command + '.py'
+            print(folder)
             foo = SourceFileLoader(match[1],folder).load_module()
             foo.funca(message, collection, bot, _user)
         
