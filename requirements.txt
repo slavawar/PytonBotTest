@@ -17,6 +17,7 @@ pylint==2.12.2
 pymongo==4.0.1
 pyTelegramBotAPI==4.4.0
 python-dotenv==0.19.2
+pytest==7.0.1
 requests==2.27.1
 setuptools==58.1.0
 toml==0.10.2

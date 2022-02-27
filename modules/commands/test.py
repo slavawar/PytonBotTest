@@ -1,4 +1,7 @@
-from func import data;
+import os, pathlib
 
 def funca(message, collection, bot, _user):
-    bot.send_message(message.from_user.id, "test.")
+    os.chdir(os.getcwd() + "/tests")
+    os.system('python runner.py')
+
+    bot.send_message(message.from_user.id, "Тесты запущены.")
